@@ -1,0 +1,74 @@
+
+Bot.send("Welcome, I am Age calculator bot");
+Bot.send("I am here to help you to calculate your age");
+Bot.send("please type hi hello to start the bot");
+var year;
+var month;
+var day;
+var name;
+var today = new Date();
+ 
+async function respond(inputText){
+    if (inputText.toLowerCase() == 'hi' || inputText.toLowerCase() == 'hello' || inputText.toLowerCase() == 'hey'){
+        Bot.send("Hello, What is your name?");
+        name = 'name';
+    }
+    else if (name == 'name'){
+        name = inputText;
+        Bot.send('Is ' + name + ' your name?');
+    }
+    else if (inputText.toLowerCase() == 'yes'){
+        Bot.send('Thank you for entering your name '+ name);
+        Bot.send('Please enter your year of birth (ex: 2017)');
+        year = 'year';
+    }
+    else if(inputText.toLowerCase() == 'no'){
+        Bot.send('Start again by saying "hi"');
+        name = '';
+    }
+    else if(year == 'year'){
+        year = parseInt(inputText);
+        Bot.send('Please enter month of birth (ex: 1-12)');
+        month = 'month';    
+    }
+    else if(month == 'month'){
+        month = parseInt(inputText);
+        Bot.send('Please enter date of birth (ex: 1-31)');
+        day = 'day';
+    }
+    else if (day == 'day'){
+        day = parseInt(inputText);
+        var today_year = today.getFullYear();//today year
+        var today_month=today.getMonth();//today month
+		console.log(today_month);
+		var today_day=today.getDay();
+		console.log(today_day);
+		if(today_month<month)
+		{
+			Bot.send(name + " you are " + (today_year-year-1) + " years old");
+		}
+		else if(today_month==month)
+		{
+			if((today_day-day)===0)
+			{
+				Bot.send(name + " you are " + (today_year-year) + " years old");
+			}
+			else if(today_day>day)
+			{
+				Bot.send(name + " you are " + (today_year-year) + " years old");
+			}
+			else{
+				Bot.send(name + " you are " + (today_year-year-1) + " years old");
+			}
+		}
+		else if(today_month>month)
+		{
+		Bot.send(name + " you are " + (today_year-year) + " years old");
+    }
+	}
+    else{
+        Bot.send('Sorry I am not able to understand, please say "hi" to start again');
+    }
+ 
+    
+}
